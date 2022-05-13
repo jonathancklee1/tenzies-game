@@ -1,0 +1,8 @@
+@use "../abstracts/" as *;
+
+.board {
+  width: 320px;
+  height: 320px;
+  background: $board-clr;
+  border-radius: 10px;
+}
