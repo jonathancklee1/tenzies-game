@@ -1,0 +1,24 @@
+@use "../abstracts/" as *;
+
+.die {
+  width: 3rem;
+  height: 3rem;
+  background: $white;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 3.81277px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  
+  &.isHeld {
+    background-color: $selected-clr;
+  }
+}
+.value {
+  font-weight: 700;
+  font-size: 20.5889px;
+  line-height: 24px;
+  text-align: center;
+  color: $text-clr;
+  font-family: "Karla";
+}

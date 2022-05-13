@@ -1,8 +1,31 @@
 @use "../abstracts/" as *;
 
 .board {
-  width: 320px;
-  height: 320px;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
   background: $board-clr;
   border-radius: 10px;
+  margin: 2rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.die-container {
+  display: grid;
+  place-items: center;
+  grid-template: auto auto/repeat(5, 1fr);
+  grid-gap: 1.5rem;
+  margin-top: 2rem;
+}
+.game-title {
+  color: $title-clr;
+  font-weight: 700;
+}
+.game-desc {
+  font-family: "Inter";
+  margin-top: 1rem;
+  color: $text-clr;
 }
