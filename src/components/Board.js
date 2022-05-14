@@ -1,22 +1,22 @@
 import React from "react";
 import Die from "./Die";
 import { nanoid } from "nanoid";
+import Confetti from "react-confetti";
 
 export default function Board() {
   const [diceArray, setDiceArray] = React.useState(allNewDice());
   const [tenzies, setTenzies] = React.useState(false);
 
   React.useEffect(() => {
-    let allHeld = true;
-    for (let i in diceArray)
-      if (diceArray[i].isHeld === false) {
-        allHeld = false;
-      }
-    if (allHeld === true) {
+    let allHeld = false;
+    let allEqual = false;
+
+    // Check if all dice are selected and all have the same number
+    allHeld = diceArray.every((die) => die.isHeld === true);
+    allEqual = diceArray.every((die) => die.value === diceArray[0].value);
+    console.log(allEqual);
+    if (allHeld && allEqual) {
       setTenzies(true);
-    }
-    if (tenzies === true) {
-      console.log("Won!");
     }
   }, [diceArray]);
 
@@ -32,6 +32,7 @@ export default function Board() {
     );
   });
   function generateNewDie() {
+    // Create a new die
     return {
       id: nanoid(),
       value: Math.floor(Math.random() * 6 + 1),
@@ -39,6 +40,7 @@ export default function Board() {
     };
   }
   function holdDice(id) {
+    // Hold the selected die
     setDiceArray(
       diceArray.map((die) =>
         die.id === id ? { ...die, isHeld: !die.isHeld } : die
@@ -46,10 +48,19 @@ export default function Board() {
     );
   }
   function rollDice() {
-    setDiceArray(diceArray.map((die) => (die.isHeld ? die : generateNewDie())));
+    // Reset game
+    if (!tenzies) {
+      setDiceArray(
+        diceArray.map((die) => (die.isHeld ? die : generateNewDie()))
+      );
+    } else {
+      setDiceArray(allNewDice());
+      setTenzies(false);
+    }
   }
 
   function allNewDice() {
+    // Set random dice
     const randNumArr = [];
     for (let i = 0; i < 10; i++) {
       randNumArr.push(generateNewDie());
@@ -57,9 +68,9 @@ export default function Board() {
     return randNumArr;
   }
 
-  console.log(allNewDice());
   return (
     <div className="board">
+      {tenzies && <Confetti width={window.innerWidth} />}
       <h1 className="game-title">Tenzies</h1>
       <h3 className="game-desc">
         Roll until all dice are the same. Click each die to freeze it at its
@@ -67,7 +78,7 @@ export default function Board() {
       </h3>
       <div className="die-container">{diceComponents}</div>
       <button className="roll-btn" onClick={rollDice}>
-        Roll
+        {tenzies ? "New Game" : "Roll"}
       </button>
     </div>
   );

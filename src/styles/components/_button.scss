@@ -1,7 +1,7 @@
 @use "../abstracts/" as *;
 .roll-btn {
-  height: 2rem;
-  width: 6rem;
+  min-height: 2rem;
+  min-width: 6rem;
   background-color: $btn-clr;
   color: $white;
   box-shadow: 0px 3.2px 7.68px rgba(0, 0, 0, 0.18);
@@ -12,6 +12,7 @@
   line-height: 19px;
   text-align: center;
   margin-top: 2rem;
+  padding: 0.8rem;
   cursor: pointer;
   &:focus {
     outline: none;
