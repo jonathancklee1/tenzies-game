@@ -6,6 +6,20 @@ import Confetti from "react-confetti";
 export default function Board() {
   const [diceArray, setDiceArray] = React.useState(allNewDice());
   const [tenzies, setTenzies] = React.useState(false);
+  const [time, setTime] = React.useState(0);
+  const [timerActive, setTimerActive] = React.useState(false);
+
+  React.useEffect(() => {
+    let timer;
+    if (timerActive) {
+      timer = setInterval(() => {
+        setTime((prevTime) => prevTime + 10);
+      }, 10);
+    } else {
+      clearInterval(timer);
+    }
+    return () => clearInterval(timer);
+  }, [timerActive]);
 
   React.useEffect(() => {
     let allHeld = false;
@@ -17,6 +31,7 @@ export default function Board() {
     console.log(allEqual);
     if (allHeld && allEqual) {
       setTenzies(true);
+      setTimerActive(false);
     }
   }, [diceArray]);
 
@@ -48,6 +63,9 @@ export default function Board() {
     );
   }
   function rollDice() {
+    if (!timerActive) {
+      setTimerActive(true);
+    }
     // Reset game
     if (!tenzies) {
       setDiceArray(
@@ -56,6 +74,8 @@ export default function Board() {
     } else {
       setDiceArray(allNewDice());
       setTenzies(false);
+      setTime(0);
+      setTimerActive(false);
     }
   }
 
@@ -76,6 +96,16 @@ export default function Board() {
         Roll until all dice are the same. Click each die to freeze it at its
         current value between rolls.
       </h3>
+      <div className="time-div">
+        <p className="time">
+          <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
+          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+        </p>
+      </div>
+      <div className="best-time">
+        Your Best Time: <span>00:00:00</span>
+      </div>
       <div className="die-container">{diceComponents}</div>
       <button className="roll-btn" onClick={rollDice}>
         {tenzies ? "New Game" : "Roll"}
