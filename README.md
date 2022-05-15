@@ -29,6 +29,10 @@ To Start Server:
 
 `npm start`
 
+### Live Site
+
+https://jonathancklee1.github.io/tenzies-game/ 
+
 ## Acknowledgments
 
 - [Scrimba](https://scrimba.com/learn/frontend)
