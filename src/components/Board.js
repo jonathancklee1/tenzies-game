@@ -32,7 +32,7 @@ export default function Board() {
     // Check if all dice are selected and all have the same number
     allHeld = diceArray.every((die) => die.isHeld === true);
     allEqual = diceArray.every((die) => die.value === diceArray[0].value);
-    console.log(allEqual);
+
     if (allHeld && allEqual) {
       setTenzies(true);
       setTimerActive(false);
