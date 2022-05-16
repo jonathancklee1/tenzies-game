@@ -1,4 +1,5 @@
 @use "../abstracts/" as *;
+@use "../utils/" as *;
 
 .board {
   width: 100%;
@@ -19,10 +20,11 @@
   grid-template: auto auto/repeat(5, 1fr);
   grid-gap: 1.5rem;
   margin-top: 2rem;
-
-  @media screen and (max-width: 400px) {
+  @include breakpoint(small) {
     grid-gap: 0.8rem;
   }
+  // @media screen and (max-width: 400px) {
+  // }
 }
 .game-title {
   color: $title-clr;
@@ -46,5 +48,12 @@
   margin-bottom: 1rem;
 }
 .time {
+  font-family: "Inter";
   font-size: 1.2rem;
+}
+
+.best-time-div > p {
+  font-family: "Inter";
+  font-size: 1.1rem;
+  color: $text-clr;
 }

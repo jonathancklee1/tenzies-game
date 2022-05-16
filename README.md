@@ -7,7 +7,7 @@ This is tenzies, a dice rolling table-top game typically played using 10 dice, i
 ### Additional Features
 
 - [X] Timer
-- [ ] Best time stored locally
+- [X] Best time stored locally
 - [ ] Dice face with dots
 - [ ] Dice rolling animation
 - [ ] Ability to choose the number of dice/ or number of faces

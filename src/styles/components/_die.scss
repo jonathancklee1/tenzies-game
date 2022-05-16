@@ -1,22 +1,27 @@
 @use "../abstracts/" as *;
+@use "../utils/" as *;
 
 .die {
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   background: $white;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 3.81277px;
+  border-radius: 8px;
   display: grid;
   place-items: center;
   cursor: pointer;
-  
+
   &.isHeld {
     background-color: $selected-clr;
+  }
+  @include breakpoint("small") {
+    width: 3rem;
+    height: 3rem;
   }
 }
 .value {
   font-weight: 700;
-  font-size: 20.5889px;
+  font-size: 1.4rem;
   line-height: 24px;
   text-align: center;
   color: $text-clr;

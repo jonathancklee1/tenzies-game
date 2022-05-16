@@ -8,8 +8,12 @@ export default function Board() {
   const [tenzies, setTenzies] = React.useState(false);
   const [time, setTime] = React.useState(0);
   const [timerActive, setTimerActive] = React.useState(false);
+  const [bestTime, setBestTime] = React.useState(
+    localStorage.getItem("bestTime") || 0
+  );
 
   React.useEffect(() => {
+    // Timer
     let timer;
     if (timerActive) {
       timer = setInterval(() => {
@@ -34,6 +38,10 @@ export default function Board() {
       setTimerActive(false);
     }
   }, [diceArray]);
+
+  React.useEffect(() => {
+    localStorage.setItem("bestTime", bestTime);
+  }, [bestTime]);
 
   const diceComponents = diceArray.map((die) => {
     return (
@@ -72,6 +80,9 @@ export default function Board() {
         diceArray.map((die) => (die.isHeld ? die : generateNewDie()))
       );
     } else {
+      if (time < bestTime || bestTime === 0) {
+        setBestTime(time);
+      }
       setDiceArray(allNewDice());
       setTenzies(false);
       setTime(0);
@@ -103,8 +114,24 @@ export default function Board() {
           <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
         </p>
       </div>
-      <div className="best-time">
-        Your Best Time: <span>00:00:00</span>
+      <div className="best-time-div">
+        <p>
+          Your Best Time:
+          {bestTime === 0 ? (
+            " No Best Time Yet"
+          ) : (
+            <span>
+              {" "}
+              <span>
+                {("0" + Math.floor((bestTime / 60000) % 60)).slice(-2)}:
+              </span>
+              <span>
+                {("0" + Math.floor((bestTime / 1000) % 60)).slice(-2)}:
+              </span>
+              <span>{("0" + ((bestTime / 10) % 100)).slice(-2)}</span>
+            </span>
+          )}
+        </p>
       </div>
       <div className="die-container">{diceComponents}</div>
       <button className="roll-btn" onClick={rollDice}>
