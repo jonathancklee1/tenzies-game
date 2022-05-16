@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Die(props) {
-  const selected = props.isHeld ? "die isHeld" : "die";
+  const selected = props.isHeld ? "die isHeld" : "die shake";
   let face;
   function setDiceFace() {
     // Renders dots on dice

@@ -74,12 +74,13 @@ export default function Board() {
     if (!timerActive) {
       setTimerActive(true);
     }
-    // Reset game
+    // Roll new dice
     if (!tenzies) {
       setDiceArray(
         diceArray.map((die) => (die.isHeld ? die : generateNewDie()))
       );
     } else {
+      // Reset game
       if (time < bestTime || bestTime === 0) {
         setBestTime(time);
       }
